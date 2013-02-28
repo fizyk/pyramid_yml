@@ -1,0 +1,3 @@
+include *.txt *.rst *.py
+recursive-include tzf *.py
+prune tzf/pyramid_yml/tests
