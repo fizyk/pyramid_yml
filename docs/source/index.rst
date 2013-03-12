@@ -16,10 +16,10 @@ Contents
 Testing
 =======
 
-To run tests you'll need *webtest* package
+To run tests you'll need *webtest*, *nosetests* and *coverage* package
 
 - ``$ python setup.py test``
-- ``$ nosetests --cover-package=tzf.pyramid_yml --cover-tests --with-doctest --with-coverage``
+- ``$ python setup.py nosetests``
 
 Code
 ====
