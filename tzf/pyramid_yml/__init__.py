@@ -34,8 +34,6 @@ def includeme(configurator, routing_package=None):
         package = sys.modules[package_name]
         path = os.path.join(package_path(package), filename)
 
-    print path
-
     # reading yml configuration
     configurator.registry['config'] = ConfigManager(
         files=[
