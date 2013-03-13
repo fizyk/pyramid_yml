@@ -36,7 +36,7 @@ setup(
     author_email='username: fizyk, domain: fizyk.net.pl',
     url='https://github.com/fizyk/pyramid_yml',
     classifiers=[
-        'Development Status :: 4 - Beta',
+        'Development Status :: 5 - Production/Stable',
         'Environment :: Web Environment',
         'Intended Audience :: Developers',
         'License :: Public Domain',
@@ -45,6 +45,7 @@ setup(
         'Programming Language :: Python',
         'Programming Language :: Python :: 2.6',
         'Programming Language :: Python :: 2.7',
+        'Programming Language :: Python :: 3',
         'Framework :: Pyramid',
         'Topic :: Internet :: WWW/HTTP',
         'Topic :: Internet :: WWW/HTTP :: WSGI',
@@ -57,7 +58,7 @@ setup(
     zip_safe=False,
     install_requires=[
         'pyramid',
-        'pymlconf >= 0.2.9a'
+        'pymlconf >= 0.2.10a'
     ],
     tests_require=test_requires,
     extras_require=extras_require,
