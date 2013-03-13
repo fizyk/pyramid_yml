@@ -44,5 +44,25 @@ def includeme(configurator, routing_package=None):
     if configurator.registry['config']:
         logger.debug('Yaml config created')
 
+        if 'configurator' in configurator.registry['config']:
+            extend_settings(settings, configurator.registry['config'].configurator)
+
     # let's calla a convenience request method
     configurator.add_request_method(lambda request: request.registry['config'], name='config', property=True)
+
+
+def extend_settings(settings, configurator_config, prefix=None):
+    '''
+        Extends settings dictionary with yml'settings defined in configurator: key
+
+        :param dict settings: settings dictionary
+        :param dict configurator_config: yml defined settings
+        :param str prefix: prefix for settings dict key
+    '''
+    for key in configurator_config:
+        settings_key = '.'.join([prefix, key]) if prefix else key
+
+        if hasattr(configurator_config[key], 'keys') and hasattr(configurator_config[key], '__getitem__'):
+            extend_settings(settings, configurator_config[key], prefix=settings_key)
+        else:
+            settings[settings_key] = configurator_config[key]

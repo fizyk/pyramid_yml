@@ -29,7 +29,6 @@ class BaseTestCase(unittest.TestCase):
         """Configure the Pyramid application."""
 
         self.config = config_factory(**settings)
-
         self.app = TestApp(self.config.make_wsgi_app())
 
 
@@ -47,9 +46,13 @@ class ConfigBaseTest(BaseTestCase):
 
     def test_setting_overwriting(self):
         '''Test whether 'configurator' key moves to settings'''
-        for key in self.config.registry['config'].configurator:
-            self.assertTrue(key in self.config.registry.settings)
-            self.assertTrue(self.config.registry.settings[key] == self.config.registry['config'].configurator[key])
+        self.assertTrue('pyramid.reload_templates' in self.config.registry.settings)
+        self.assertTrue(self.config.registry.settings['pyramid.reload_templates'] == self.config.registry['config'].configurator['pyramid.reload_templates'])
+
+    def test_settings_overwrite_complex(self):
+        '''Test whether 'configurator' complex keys gets moved into settings'''
+        self.assertTrue('sqlalchemy.url' in self.config.registry.settings)
+        self.assertTrue(self.config.registry.settings['sqlalchemy.url'] == self.config.registry['config'].configurator['sqlalchemy']['url'])
 
 
 class ConfigProdEnvTest(BaseTestCase):
@@ -71,4 +74,4 @@ class ConfigByFilenameTest(BaseTestCase):
     def test_reading(self):
         '''Test whether prod config gets read'''
         self.assertTrue('key' in self.config.registry['config'],
-                        'If yml had been read, the config would have \'key\' key')
+                        'In this test with env=prod, config.dev.yml will not be read (would be prod if existed)')
