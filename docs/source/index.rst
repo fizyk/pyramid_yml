@@ -15,7 +15,7 @@ Contents
 Third party libraries
 ---------------------
 
-* `pymlconf <https://pypi.python.org/pypi/pymlconf>`_ > 0.2.9a
+* `pymlconf <https://pypi.python.org/pypi/pymlconf>`_ > 0.2.10a
 
 
 Testing
