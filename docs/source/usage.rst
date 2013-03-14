@@ -54,3 +54,23 @@ will become:
 
 .. warning::
     all **pyramid.*** settings should still be defined in ini settings file, as these are processed on application start
+
+
+Including packages
+------------------
+
+.. note::
+    This functionality is an attempt to move more core pyramid functionality into yml configuration.
+
+    For more information see `Pyramid documentation on including packages <http://docs.pylonsproject.org/projects/pyramid/en/1.4-branch/narr/environment.html#including-packages>`_
+
+
+To include other packages, and not define them in *.ini* settings file, add include: key into your yml config.
+
+.. code-block:: yaml
+
+    include:
+        some.module: True           # Module, that'll be included
+        prefixed.module: 'path'     # Module included with route_prefix
+        not.included.module: False  # Module not included (helpful for overriding inherited global setting)
+
