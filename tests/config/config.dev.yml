@@ -5,3 +5,8 @@ configurator:
     pyramid.reload_templates: false
     sqlalchemy:
         url: sphinx+mysqldb://sphinxsearch.net:9306/?charset=utf8
+
+
+
+include:
+    tests.includeme_method2: False

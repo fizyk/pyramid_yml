@@ -44,8 +44,13 @@ def includeme(configurator, routing_package=None):
     if configurator.registry['config']:
         logger.debug('Yaml config created')
 
+        # extend settings object
         if 'configurator' in configurator.registry['config']:
             extend_settings(settings, configurator.registry['config'].configurator)
+
+        # run include's
+        if 'include' in configurator.registry['config']:
+            run_includemes(configurator, configurator.registry['config'].include)
 
     # let's calla a convenience request method
     configurator.add_request_method(lambda request: request.registry['config'], name='config', property=True)
@@ -66,3 +71,19 @@ def extend_settings(settings, configurator_config, prefix=None):
             extend_settings(settings, configurator_config[key], prefix=settings_key)
         else:
             settings[settings_key] = configurator_config[key]
+
+
+def run_includemes(configurator, includemes):
+    '''
+        Runs configurator.include() for packages defined in include key in yaml configuration
+
+        :param pyramid.config.Configurator configurator: pyramid's app configurator
+        :param dict includemes: include, a list of includes or dictionary
+    '''
+
+    for include in includemes:
+        if includemes[include]:
+            try:
+                configurator.include(include, includemes[include])
+            except AttributeError:
+                configurator.include(include)

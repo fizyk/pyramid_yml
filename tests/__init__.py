@@ -23,6 +23,14 @@ def config_factory(**settings):
     return config
 
 
+def includeme_method(config):
+    config.registry['includeme_method'] = True
+
+
+def includeme_method2(config):
+    config.registry['includeme_method2'] = True
+
+
 class BaseTestCase(unittest.TestCase):
 
     def setUp(self, settings={'yml.location': 'tests:config'}):
@@ -54,6 +62,12 @@ class ConfigBaseTest(BaseTestCase):
         self.assertTrue('sqlalchemy.url' in self.config.registry.settings)
         self.assertTrue(self.config.registry.settings['sqlalchemy.url'] == self.config.registry['config'].configurator['sqlalchemy']['url'])
 
+    def test_includeme(self):
+        '''Tests if includeme's options runs include action for defined data. One should be included,  the other is defined as False'''
+        self.assertTrue('includeme_method' in self.config.registry, 'Included module should set a key on registry')
+        self.assertTrue(self.config.registry['includeme_method'], 'Values set by included module should be True')
+        self.assertTrue('includeme_method2' not in self.config.registry, 'Not included, no key on registry')
+
 
 class ConfigProdEnvTest(BaseTestCase):
 
@@ -64,6 +78,13 @@ class ConfigProdEnvTest(BaseTestCase):
         '''Test whether prod config gets read'''
         self.assertTrue(self.config.registry['config'].key.env == 'default',
                         'In this test with env=prod, config.dev.yml will not be read (would be prod if existed)')
+
+    def test_includeme(self):
+        '''Tests if includeme's options runs include action for defined data.'''
+        self.assertTrue('includeme_method' in self.config.registry, 'Included module should set a key on registry')
+        self.assertTrue(self.config.registry['includeme_method'], 'Values set by included module should be True')
+        self.assertTrue('includeme_method2' in self.config.registry, 'Not included, no key on registry')
+        self.assertTrue(self.config.registry['includeme_method2'], 'Values set by included module should be True')
 
 
 class ConfigByFilenameTest(BaseTestCase):

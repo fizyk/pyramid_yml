@@ -11,3 +11,9 @@ database:
             echo: False
 
 configurator: []
+
+
+
+include:
+    tests.includeme_method: True
+    tests.includeme_method2: 'path'
