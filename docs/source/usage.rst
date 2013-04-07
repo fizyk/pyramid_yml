@@ -7,23 +7,61 @@ To use **tzf.pyramid_yml** in your pyramid app, add config.include('') directive
 
     config.inlude('tzf.pyramid_yml')
 
-Configuration
--------------
-
-No you need to add **yml.location** into you app's setting.ini file.
+Now you need to add **yml.location** into you application's setting.ini file.
 
 .. code-block:: ini
 
     [app:main]
         # ....
         yml.location = my.package:config
+        env = dev # default value is dev
         # ....
 
 .. note::
     This configuration option works on the same principle, as defining pyramid assets. Can be package asset path, or pathname only.
 
 .. note::
-    You do not have to define this option, it defaults to the place you start your app from (usually, same place you keep you .ini files)
+    You do not have to define any of these options:
+
+    * **yml.location** defaults to the place you start your app from (usually, same place you keep you .ini files)
+    * **env** defaults to dev
+
+Yaml configuration files
+------------------------
+
+tzf.pyramid_yml will read two yaml configuration files: *config.yml* and *config.{env}.yml* (config.dev.yml in this case) from yml.location. The second one will overwrite the values from the first file, but all keys and values defined in first, and not in second, will stay the same:
+
+.. code-block:: yaml
+
+    # config.yml
+    key:
+        subkey: value
+        subkey2: value2
+
+
+.. code-block:: yaml
+
+    #config.dev.yml
+    key:
+        subkey2: overwritten
+        another:
+            deep:
+                subkey: 1
+
+These two files will result in this config dictionary:
+
+.. code-block:: python
+
+    {'key': {'subkey': 'value'
+            'subkey2': 'overwritten'
+            'another': {'deep': {'subkey': 1}}
+            }
+    }
+
+Access to configuration
+-----------------------
+
+Configuration will be accessible on request object under config attribute: **request.object**. It's a ConfigManager instance, meaning, that all keys can be accessed as regular dictionary keys or as attributes.
 
 
 Pyramid settings in yaml config
@@ -48,7 +86,7 @@ or
 
 will become:
 
-..code-block:: python
+.. code-block:: python
 
     config.registry.settings['sqlalchemy.url']
 

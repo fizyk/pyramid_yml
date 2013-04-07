@@ -25,7 +25,7 @@ extras_require = {
 setup(
     name='tzf.pyramid_yml',
     version=package_version,
-    description='Reads and sets routing configuration from a package',
+    description='Loads a yml defined configuration',
     long_description=(
         read('README.rst')
         + '\n\n' +
