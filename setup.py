@@ -62,4 +62,8 @@ setup(
     ],
     tests_require=test_requires,
     extras_require=extras_require,
+    entry_points = '''
+    [console_scripts]
+    pconfig = tzf.pyramid_yml.scripts:print_config
+    ''',
 )
