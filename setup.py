@@ -20,6 +20,7 @@ test_requires = [
 
 extras_require = {
     'docs': ['sphinx', 'sphinx_bootstrap_theme'],
+    'tests': test_requires,
 }
 
 setup(
