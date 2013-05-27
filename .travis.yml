@@ -6,6 +6,8 @@ python:
     - "3.3"
 install:
     - "python setup.py install"
-    - "pip install tzf.pyramid_yml[tests] --use-mirrors"
+    - "pip install tzf.pyramid_yml[tests] coveralls --use-mirrors"
 script:
-    - "python setup.py nosetests"
+    - python setup.py nosetests
+after_success:
+    - coveralls

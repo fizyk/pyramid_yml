@@ -2,6 +2,22 @@
 tzf.pyramid_yml README
 ==========================
 
+.. image:: https://travis-ci.org/fizyk/pyramid_yml.png?branch=master
+    :target: https://travis-ci.org/fizyk/pyramid_yml
+    :alt: Tests for RandomWords
+
+.. image:: https://coveralls.io/repos/fizyk/pyramid_yml/badge.png?branch=master
+    :target: https://coveralls.io/r/fizyk/pyramid_yml?branch=master
+    :alt: Coverage Status
+
+.. image:: https://pypip.in/v/tzf.pyramid_yml/badge.png
+    :target: https://crate.io/packages/tzf.pyramid_yml/
+    :alt: Latest PyPI version
+
+.. image:: https://pypip.in/d/tzf.pyramid_yml/badge.png
+    :target: https://crate.io/packages/tzf.pyramid_yml/
+    :alt: Number of PyPI downloads
+
 **tzf.pyramid_yml** is a convenience package, that allows for a yml settings, that can be kept in a structured, clear way, and also extensible depending on an 'environment'.
 
 Documentation
