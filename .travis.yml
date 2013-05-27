@@ -8,4 +8,4 @@ install:
     - "python setup.py install"
     - "pip install tzf.pyramid_yml[tests] --use-mirrors"
 script:
-    - nosetests
+    - "python setup.py nosetests"
