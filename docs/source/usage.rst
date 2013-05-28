@@ -112,3 +112,11 @@ To include other packages, and not define them in *.ini* settings file, add incl
         prefixed.module: 'path'     # Module included with route_prefix
         not.included.module: False  # Module not included (helpful for overriding inherited global setting)
 
+pconfig - command line tool
+---------------------------
+
+tzf.pyramid_yml provides a command line, `pconfig` which will help detect inheritance chain of your yml files. It displays properly indented and inherited config tree for given environment.
+
+To run, type:
+``$ pconfig development.ini``
+

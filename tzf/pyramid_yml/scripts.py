@@ -46,6 +46,12 @@ def print_config():
 
 
 def printer(data, depth=0):
+    '''
+        Methods prints out config tree
+
+        :param data: a data value that will be processed by method
+        :param int depth: recurrency indicator, to maintain proper ident
+    '''
     ident = '  ' * depth
     if isinstance(data, dict):
         for k, v in data.items():
