@@ -1,0 +1,97 @@
+# -*- coding: utf-8 -*-
+import optparse
+import sys
+import textwrap
+import re
+
+from pyramid.paster import bootstrap
+from pymlconf import ConfigDict, ConfigManager, ConfigList
+
+_ident = '  '
+
+
+def print_config():  # pragma: no cover
+
+    description = """\
+        Print the deployment settings for a Pyramid application.  Example:
+        'psettings deployment.ini'
+    """
+    usage = "usage: %prog config_uri"
+    parser = optparse.OptionParser(
+        usage=usage,
+        description=textwrap.dedent(description)
+    )
+    parser.add_option(
+        '-k', '--key',
+        dest='key',
+        metavar='PREFIX',
+        type='string',
+        action='store',
+        help=("Tells script to print only specified config tree provided by dotted name")
+    )
+
+    options, args = parser.parse_args(sys.argv[1:])
+    if not len(args) >= 1:
+        print('You must provide at least one argument')
+        return 2
+
+    config_uri = args[0]
+    env = bootstrap(config_uri)
+    config, closer = env['registry']['config'], env['closer']
+
+    try:
+        print printer(_slice_config(config, options.key))
+    except KeyError:
+        print('Sorry, but the key path {0}, does not exists in Your config!'.format(options.key))
+    finally:
+        closer()
+
+
+def printer(data, depth=0):
+    '''
+        Methods prepares config tree for printing
+
+        :param data: a data value that will be processed by method
+        :param int depth: recurrency indicator, to maintain proper ident
+
+        :returns: string with formatted config
+        :rtype: str
+    '''
+    ident = _ident * depth
+    config_string = '' if not depth else ':\n'
+    if isinstance(data, dict):
+        for k, v in data.items():
+            line = '{0}{1}'.format(ident, k)
+            values = printer(v, depth + 1)
+            if not values.count('\n'):
+                values = ': {0}'.format(values.lstrip())
+
+            line = '{line}{values}'.format(line=line, values=values)
+            config_string += '{0}\n'.format(line)
+
+    elif isinstance(data, list):
+        for el in data:
+            config_string += '{0} - {1}\n'.format(ident, el)
+    else:
+        config_string = '{0}{1} ({2})'.format(ident, data, data.__class__.__name__)
+
+    return config_string.rstrip('\n')
+
+
+def _slice_config(config, key):
+    '''
+    slices config for printing as defined in key
+
+    :param ConfigManager config: configuration dictionary
+    :param str key: dotted key, by which config should be sliced for printing
+
+    :returns: sliced config
+    :rtype: dict
+    '''
+
+    if key:
+        keys = key.split('.')
+        for k in keys:
+            config = config[k]
+
+    return config

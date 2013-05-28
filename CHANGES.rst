@@ -2,6 +2,10 @@
 CHANGES
 =======
 
+current
+-------
+- *pconfig* command line tool for displaying merged yaml config
+
 0.1.0
 -------
 - python 3 compatibility
