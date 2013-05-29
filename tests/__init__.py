@@ -80,8 +80,6 @@ class ConfigDefaultsTest(BaseTestCase):
         self.assertFalse('subkey3' in self.config.registry['config'].key, 'defaults.yml is not yet included')
         self.config.config_defaults('tests:config', files=['defaults.yml'])
 
-        print(self.config.registry['config'])
-
         self.assertFalse(self.config.registry['config'].key.subkey,
                          'defaults.yml sets to True, but it should be defined as False by config.yml')
         self.assertTrue('subkey3' in self.config.registry['config'].key, 'defaults.yml is included, key should exists')
