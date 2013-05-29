@@ -71,13 +71,17 @@ def config_defaults(configurator, config, files=['config.yml']):
         package = sys.modules[package_name]
         path = os.path.join(package_path(package), filename)
 
+    print path
+
     config = ConfigManager(files=[os.path.join(path, f) for f in files])
+    print config
 
     # we could use this method both for creating and extending. Hence the checks to not override
     if not 'config' in configurator.registry:
         configurator.registry['config'] = config
     else:
-        configurator.registry['config'] = config.merge(configurator.registry['config'])
+        config.merge(configurator.registry['config'])
+        configurator.registry['config'] = config
 
 
 def _extend_settings(settings, configurator_config, prefix=None):
