@@ -39,11 +39,11 @@ def includeme(configurator, routing_package=None):
 
         # extend settings object
         if 'configurator' in configurator.registry['config']:
-            extend_settings(settings, configurator.registry['config'].configurator)
+            _extend_settings(settings, configurator.registry['config'].configurator)
 
         # run include's
         if 'include' in configurator.registry['config']:
-            run_includemes(configurator, configurator.registry['config'].include)
+            _run_includemes(configurator, configurator.registry['config'].include)
 
     # let's calla a convenience request method
     configurator.add_request_method(lambda request: request.registry['config'], name='config', property=True)
@@ -51,11 +51,15 @@ def includeme(configurator, routing_package=None):
 
 def config_defaults(configurator, config, files=['config.yml']):
     '''
-        Reads and extends/creates configuration from yaml source. It extends with config defaults,
-        hence will not overwrite already defined config values
+        Reads and extends/creates configuration from yaml source.
+
+        .. note::
+            If exists, this method extends config with defaults, so it will not override existing values,
+            merely add those, that were not defined already!
 
         :param pyramid.config.Configurator configurator: pyramid's app configurator
         :param string config: yaml file locations
+        :param list files: list of files to include from location
     '''
 
     # getting spec path
@@ -76,7 +80,7 @@ def config_defaults(configurator, config, files=['config.yml']):
         configurator.registry['config'] = config.merge(configurator.registry['config'])
 
 
-def extend_settings(settings, configurator_config, prefix=None):
+def _extend_settings(settings, configurator_config, prefix=None):
     '''
         Extends settings dictionary with yml'settings defined in configurator: key
 
@@ -88,12 +92,12 @@ def extend_settings(settings, configurator_config, prefix=None):
         settings_key = '.'.join([prefix, key]) if prefix else key
 
         if hasattr(configurator_config[key], 'keys') and hasattr(configurator_config[key], '__getitem__'):
-            extend_settings(settings, configurator_config[key], prefix=settings_key)
+            _extend_settings(settings, configurator_config[key], prefix=settings_key)
         else:
             settings[settings_key] = configurator_config[key]
 
 
-def run_includemes(configurator, includemes):
+def _run_includemes(configurator, includemes):
     '''
         Runs configurator.include() for packages defined in include key in yaml configuration
 
