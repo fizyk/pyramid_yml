@@ -51,7 +51,8 @@ def includeme(configurator, routing_package=None):
 
 def config_defaults(configurator, config, files=['config.yml']):
     '''
-        Reads and extends/creates configuration from yaml source
+        Reads and extends/creates configuration from yaml source. It extends with config defaults,
+        hence will not overwrite already defined config values
 
         :param pyramid.config.Configurator configurator: pyramid's app configurator
         :param string config: yaml file locations
@@ -68,11 +69,11 @@ def config_defaults(configurator, config, files=['config.yml']):
 
     config = ConfigManager(files=[os.path.join(path, f) for f in files])
 
-    # we culd use this method both for creating and extending. Hence the checks to not override
+    # we could use this method both for creating and extending. Hence the checks to not override
     if not 'config' in configurator.registry:
         configurator.registry['config'] = config
     else:
-        # TODO: Merge existing into new one
+        configurator.registry['config'] = config.merge(configurator.registry['config'])
 
 
 def extend_settings(settings, configurator_config, prefix=None):
