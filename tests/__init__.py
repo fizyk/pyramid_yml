@@ -1,6 +1,11 @@
 # -*- coding: utf-8 -*-
 
+import sys
+import os
 import unittest
+
+from pyramid.asset import resolve_asset_spec
+from pyramid.path import package_path
 
 try:
     from webtest import TestApp
@@ -106,9 +111,26 @@ class ConfigProdEnvTest(BaseTestCase):
 class ConfigByFilenameTest(BaseTestCase):
 
     def setUp(self):
+        # this works in relation from where the tests are being run
         BaseTestCase.setUp(self, {'env': 'prod', 'yml.location': 'tests/config'})
 
     def test_reading(self):
-        '''Test whether prod config gets read'''
+        '''Test whether config by path gets read'''
+        self.assertTrue('key' in self.config.registry['config'],
+                        'In this test with env=prod, config.dev.yml will not be read (would be prod if existed)')
+
+
+class ConfigByFullFilenameTest(BaseTestCase):
+
+    def setUp(self):
+        # making sure we get full path to pass always, no matter where this test is being run
+        package_name, filename = resolve_asset_spec('tests:config')
+        __import__(package_name)
+        package = sys.modules[package_name]
+        path = os.path.join(package_path(package), filename)
+        BaseTestCase.setUp(self, {'env': 'prod', 'yml.location': path})
+
+    def test_reading(self):
+        '''Test whether config by full path gets read'''
         self.assertTrue('key' in self.config.registry['config'],
                         'In this test with env=prod, config.dev.yml will not be read (would be prod if existed)')
