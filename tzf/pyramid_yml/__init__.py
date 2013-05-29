@@ -25,21 +25,14 @@ def includeme(configurator, routing_package=None):
     # lets default it to running path
     yml_location = settings.get('yml.location', os.getcwd())
 
-    # getting spec path
-    package_name, filename = resolve_asset_spec(yml_location)
-    if not package_name:
-        path = filename
-    else:
-        __import__(package_name)
-        package = sys.modules[package_name]
-        path = os.path.join(package_path(package), filename)
+    configurator.add_directive('config_defaults',
+                               config_defaults)
+
+    configurator.config_defaults(yml_location, files=[
+                                 'config.yml',
+                                 'config.{env}.yml'.format(env=settings.get('env', 'dev'))])
 
     # reading yml configuration
-    configurator.registry['config'] = ConfigManager(
-        files=[
-            os.path.join(path, 'config.yml'),
-            os.path.join(path, 'config.{env}.yml'.format(env=settings.get('env', 'dev')))
-        ])
 
     if configurator.registry['config']:
         logger.debug('Yaml config created')
@@ -54,6 +47,32 @@ def includeme(configurator, routing_package=None):
 
     # let's calla a convenience request method
     configurator.add_request_method(lambda request: request.registry['config'], name='config', property=True)
+
+
+def config_defaults(configurator, config, files=['config.yml']):
+    '''
+        Reads and extends/creates configuration from yaml source
+
+        :param pyramid.config.Configurator configurator: pyramid's app configurator
+        :param string config: yaml file locations
+    '''
+
+    # getting spec path
+    package_name, filename = resolve_asset_spec(config)
+    if not package_name:
+        path = filename
+    else:
+        __import__(package_name)
+        package = sys.modules[package_name]
+        path = os.path.join(package_path(package), filename)
+
+    config = ConfigManager(files=[os.path.join(path, f) for f in files])
+
+    # we culd use this method both for creating and extending. Hence the checks to not override
+    if not 'config' in configurator.registry:
+        configurator.registry['config'] = config
+    else:
+        # TODO: Merge existing into new one
 
 
 def extend_settings(settings, configurator_config, prefix=None):
