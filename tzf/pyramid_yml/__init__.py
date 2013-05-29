@@ -7,7 +7,7 @@ from pyramid.asset import resolve_asset_spec
 from pyramid.path import package_path
 from pymlconf import ConfigManager
 
-__version__ = '0.1.0'
+__version__ = '0.2.0dev'
 
 
 logger = logging.getLogger(__name__)
