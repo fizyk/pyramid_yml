@@ -120,3 +120,17 @@ tzf.pyramid_yml provides a command line, `pconfig` which will help detect inheri
 To run, type:
 ``$ pconfig development.ini``
 
+
+Adding more defaults
+--------------------
+
+**tzf.pyramid_yml** allows to create more defaults, based on same location of yaml files, as defined in *yml.location*, allowing to use this method by 3rd party pyramid plugins.
+
+To do this, config_defaults method has been added to Configurator object. It's use is as simple as:
+
+.. code-block:: python
+
+    config.config_defaults('package.module:folder/subfolder')
+    config.config_defaults('package.module:folder/subfolder', ['my_defaults.yml'])
+
+It's more detailed within api section. :meth:`tzf.pyramid_yml.config_defaults`

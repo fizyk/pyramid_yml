@@ -50,23 +50,39 @@ class ConfigBaseTest(BaseTestCase):
 
     def test_reading_dev(self):
         '''Test whether dev config gets read'''
-        self.assertTrue(self.config.registry['config'].key.env == 'dev', 'key.env value should be overwritten in config.dev.yml!')
+        self.assertTrue(self.config.registry[
+                        'config'].key.env == 'dev', 'key.env value should be overwritten in config.dev.yml!')
 
     def test_setting_overwriting(self):
         '''Test whether 'configurator' key moves to settings'''
         self.assertTrue('pyramid.reload_templates' in self.config.registry.settings)
-        self.assertTrue(self.config.registry.settings['pyramid.reload_templates'] == self.config.registry['config'].configurator['pyramid.reload_templates'])
+        self.assertTrue(self.config.registry.settings['pyramid.reload_templates'] == self.config.registry[
+                        'config'].configurator['pyramid.reload_templates'])
 
     def test_settings_overwrite_complex(self):
         '''Test whether 'configurator' complex keys gets moved into settings'''
         self.assertTrue('sqlalchemy.url' in self.config.registry.settings)
-        self.assertTrue(self.config.registry.settings['sqlalchemy.url'] == self.config.registry['config'].configurator['sqlalchemy']['url'])
+        self.assertTrue(self.config.registry.settings[
+                        'sqlalchemy.url'] == self.config.registry['config'].configurator['sqlalchemy']['url'])
 
     def test_includeme(self):
         '''Tests if includeme's options runs include action for defined data. One should be included,  the other is defined as False'''
         self.assertTrue('includeme_method' in self.config.registry, 'Included module should set a key on registry')
         self.assertTrue(self.config.registry['includeme_method'], 'Values set by included module should be True')
         self.assertTrue('includeme_method2' not in self.config.registry, 'Not included, no key on registry')
+
+
+class ConfigDefaultsTest(BaseTestCase):
+
+    def test_extend_with_defaults(self):
+        '''Test whether default from extending defaults are not overriding previously created config'''
+
+        self.assertFalse('subkey3' in self.config.registry['config'].key, 'defaults.yml is not yet included')
+        self.config.config_defaults('tests:config', files=['defaults.yml'])
+
+        self.assertFalse(self.config.registry['config'].key.subkey,
+                         'defaults.yml sets to True, but it should be defined as False by config.yml')
+        self.assertTrue('subkey3' in self.config.registry['config'].key, 'defaults.yml is included, key should exists')
 
 
 class ConfigProdEnvTest(BaseTestCase):

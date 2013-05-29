@@ -11,6 +11,7 @@ Contents
 
    install
    usage
+   api
 
 Third party libraries
 ---------------------
