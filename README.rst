@@ -28,4 +28,4 @@ Documentation can be found here: http://pythonhosted.org/tzf.pyramid_yml/
 Testing
 -------
 
-To run tests, either type ``python setup.py tests`` or ``python setup.py nosetests`` to get coverage.
+To run tests, either type ``python setup.py test`` or ``python setup.py nosetests`` to get coverage.
