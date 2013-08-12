@@ -8,6 +8,6 @@ install:
     - "python setup.py install"
     - "pip install tzf.pyramid_yml[tests] coveralls --use-mirrors"
 script:
-    - python setup.py nosetests
+    - py.test --cov-report term-missing --cov tzf.pyramid_yml tests/
 after_success:
     - coveralls
