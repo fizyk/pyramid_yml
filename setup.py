@@ -6,16 +6,25 @@ from setuptools import setup, find_packages
 
 here = os.path.dirname(__file__)
 with open(os.path.join(here, 'tzf', 'pyramid_yml', '__init__.py')) as v_file:
-    package_version = re.compile(r".*__version__ = '(.*?)'", re.S).match(v_file.read()).group(1)
+    package_version = re.compile(r".*__version__ = '(.*?)'", re.S)\
+                        .match(v_file.read())\
+                        .group(1)
 
 
 def read(fname):
-    return open(os.path.join(here, fname)).read()
+    '''Quick way to read a file content.
+       Using 'with' closes file descriptor properly.
+    '''
+    content = ''
+    with open(os.path.join(here, fname)) as f:
+        content = f.read()
+    return content
 
 test_requires = [
     'WebTest',
-    'nose',
     'coverage',
+    'pytest',
+    'pytest-cov'
 ]
 
 extras_require = {

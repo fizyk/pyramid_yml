@@ -28,4 +28,10 @@ Documentation can be found here: http://pythonhosted.org/tzf.pyramid_yml/
 Testing
 -------
 
-To run tests, either type ``python setup.py test`` or ``python setup.py nosetests`` to get coverage.
+You'll need: packages defined in extra_requires[tests] to run tests, and then:
+
+``py.test``
+
+For detailed test report run this command:
+
+``py.test --cov-report term-missing --cov tzf.pyramid_yml tests/``
