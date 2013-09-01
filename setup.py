@@ -28,7 +28,7 @@ test_requires = [
 ]
 
 extras_require = {
-    'docs': ['sphinx', 'sphinx_bootstrap_theme'],
+    'docs': ['sphinx'],
     'tests': test_requires,
 }
 
@@ -45,11 +45,12 @@ setup(
     author='Grzegorz Sliwinski',
     author_email='username: fizyk, domain: fizyk.net.pl',
     url='https://github.com/fizyk/pyramid_yml',
+    license="MIT License",
     classifiers=[
         'Development Status :: 5 - Production/Stable',
         'Environment :: Web Environment',
         'Intended Audience :: Developers',
-        'License :: Public Domain',
+        'License :: OSI Approved :: MIT License',
         'Natural Language :: English',
         'Operating System :: OS Independent',
         'Programming Language :: Python',

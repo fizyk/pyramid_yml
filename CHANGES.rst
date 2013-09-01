@@ -2,6 +2,11 @@
 CHANGES
 =======
 
+current
+-------
+- rewrite all test to py.test
+- introduced License
+
 0.2.0
 -------
 - *pconfig* command line tool for displaying merged yaml config

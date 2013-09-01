@@ -1,4 +1,10 @@
 # -*- coding: utf-8 -*-
+
+# Copyright (c) 2013 by tzf.pyramid_yml authors and contributors <see AUTHORS file>
+#
+# This module is part of tzf.pyramid_yml and is released under
+# the MIT License (MIT): http://opensource.org/licenses/MIT
+
 import optparse
 import sys
 import textwrap
