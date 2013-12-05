@@ -17,6 +17,8 @@ Now you need to add **yml.location** into you application's setting.ini file.
         env = dev # default value is dev
         # ....
 
+This settings key can be a path or list of path allowing you to keep configurations for production environment separately.
+
 .. note::
     This configuration option works on the same principle, as defining pyramid assets. Can be package asset path, or pathname only.
 
