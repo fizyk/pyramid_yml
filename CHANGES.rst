@@ -6,6 +6,7 @@ current
 -------
 - rewrite all test to py.test
 - introduced License
+- allow to load configuration files from more than one folder
 
 0.2.0
 -------
