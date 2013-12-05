@@ -69,7 +69,7 @@ setup(
     zip_safe=False,
     install_requires=[
         'pyramid',
-        'pymlconf >= 0.2.10a'
+        'pymlconf >= 0.3.7'
     ],
     tests_require=test_requires,
     extras_require=extras_require,

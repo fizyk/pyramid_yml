@@ -2,18 +2,17 @@
 
 import os
 import sys
+
 import pytest
 from pyramid.asset import resolve_asset_spec
 from pyramid.path import package_path
-from tests.utils import config_factory
+from webtest import TestApp
 
-try:
-    from webtest import TestApp
-except ImportError:
-    raise ImportError("You need WebTest module!! (pip install WebTest)")
+from tests.utils import config_factory
 
 
 class App(object):
+
     """Simplest form of our test application"""
 
     def __init__(self, app, config):

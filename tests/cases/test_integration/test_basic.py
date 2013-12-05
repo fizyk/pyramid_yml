@@ -39,9 +39,9 @@ def test_settings_overwrite_complex(base_app):
 def test_includeme(base_app):
     '''Tests if includeme's options runs include action for defined data.
        One should be included,  the other is defined as False'''
-    #key.env value should be overwritten in config.dev.yml!
+    # key.env value should be overwritten in config.dev.yml!
     assert ('includeme_method' in base_app.config.registry)
-    #Values set by included module should be True
+    # Values set by included module should be True
     assert (base_app.config.registry['includeme_method'])
-    #Not included, no key on registry
+    # Not included, no key on registry
     assert ('includeme_method2' not in base_app.config.registry)

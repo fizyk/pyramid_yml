@@ -10,7 +10,7 @@ database:
             url: 'sqlite:///'
             echo: False
 
-configurator: []
+configurator: False
 
 
 

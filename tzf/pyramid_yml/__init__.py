@@ -29,33 +29,34 @@ def includeme(configurator, routing_package=None):
     settings = configurator.registry.settings
 
     # lets default it to running path
-    yml_location = settings.get('yml.location', os.getcwd())
+    yml_locations = settings.get('yml.location', os.getcwd())
 
     configurator.add_directive('config_defaults',
                                config_defaults)
 
-    configurator.config_defaults(yml_location, files=[
+    configurator.config_defaults(yml_locations, files=[
                                  'config.yml',
                                  'config.{env}.yml'.format(env=settings.get('env', 'dev'))])
 
     # reading yml configuration
 
     if configurator.registry['config']:
+        config = configurator.registry['config']
         logger.debug('Yaml config created')
 
         # extend settings object
-        if 'configurator' in configurator.registry['config']:
-            _extend_settings(settings, configurator.registry['config'].configurator)
+        if 'configurator' in config and config.configurator:
+            _extend_settings(settings, config.configurator)
 
         # run include's
-        if 'include' in configurator.registry['config']:
-            _run_includemes(configurator, configurator.registry['config'].include)
+        if 'include' in config:
+            _run_includemes(configurator, config.include)
 
     # let's calla a convenience request method
     configurator.add_request_method(lambda request: request.registry['config'], name='config', property=True)
 
 
-def config_defaults(configurator, config, files=['config.yml']):
+def config_defaults(configurator, config_locations, files=['config.yml']):
     '''
         Reads and extends/creates configuration from yaml source.
 
@@ -64,20 +65,27 @@ def config_defaults(configurator, config, files=['config.yml']):
             merely add those, that were not defined already!
 
         :param pyramid.config.Configurator configurator: pyramid's app configurator
-        :param string config: yaml file locations
+        :param list config_locations: list of yaml file locations
         :param list files: list of files to include from location
     '''
 
-    # getting spec path
-    package_name, filename = resolve_asset_spec(config)
-    if not package_name:
-        path = filename
-    else:
-        __import__(package_name)
-        package = sys.modules[package_name]
-        path = os.path.join(package_path(package), filename)
+    if not isinstance(config_locations, (list, tuple)):
+        config_locations = (config_locations,)
 
-    config = ConfigManager(files=[os.path.join(path, f) for f in files])
+    file_paths = []
+    for config_file in config_locations:
+        # getting spec path
+        package_name, filename = resolve_asset_spec(config_file)
+        if not package_name:
+            path = filename
+        else:
+            __import__(package_name)
+            package = sys.modules[package_name]
+            path = os.path.join(package_path(package), filename)
+
+        file_paths.extend([os.path.join(path, f) for f in files])
+
+    config = ConfigManager(files=file_paths)
 
     # we could use this method both for creating and extending. Hence the checks to not override
     if not 'config' in configurator.registry:
@@ -95,6 +103,7 @@ def _extend_settings(settings, configurator_config, prefix=None):
         :param dict configurator_config: yml defined settings
         :param str prefix: prefix for settings dict key
     '''
+
     for key in configurator_config:
         settings_key = '.'.join([prefix, key]) if prefix else key
 
