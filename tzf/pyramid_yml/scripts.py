@@ -13,7 +13,7 @@ import re
 from pyramid.paster import bootstrap
 from pymlconf import ConfigDict, ConfigManager, ConfigList
 
-_ident = '  '
+_indent = '  '
 
 
 def print_config():  # pragma: no cover
@@ -63,7 +63,7 @@ def printer(data, depth=0):
         :returns: string with formatted config
         :rtype: str
     '''
-    ident = _ident * depth
+    ident = _indent * depth
     config_string = '' if not depth else ':\n'
     if isinstance(data, dict):
         for k, v in data.items():
