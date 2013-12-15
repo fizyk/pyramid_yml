@@ -75,7 +75,12 @@ def config_defaults(configurator, config_locations, files=['config.yml']):
     file_paths = []
     for location in config_locations:
         path = _translate_config_path(location)
-        for config_path in [os.path.join(path, f) for f in _env_filenames(files, env)]:
+        current_files = files
+        if os.path.isfile(path):
+            path, current_files = os.path.split(path)
+            current_files = [current_files]
+
+        for config_path in [os.path.join(path, f) for f in _env_filenames(current_files, env)]:
             if os.path.isfile(config_path):
                 file_paths.append(config_path)
 
@@ -96,6 +101,7 @@ def _translate_config_path(location):
 
     :param str location: resource location
     :returns: fullpath
+
     :rtype: str
     '''
 

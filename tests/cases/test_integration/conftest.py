@@ -20,12 +20,13 @@ class App(object):
         self.config = config
 
 
-@pytest.fixture(scope='function')
-def base_app():
+@pytest.fixture(scope='function',
+                params=['tests:config', 'tests:config/config.yml'])
+def base_app(request):
     """Configure the Pyramid application."""
 
     # Configure redirect routes
-    config = config_factory(**{'yml.location': 'tests:config'})
+    config = config_factory(**{'yml.location': request.param})
     # Add routes for change_password, change_username,
     app = TestApp(config.make_wsgi_app())
     return App(app, config)
