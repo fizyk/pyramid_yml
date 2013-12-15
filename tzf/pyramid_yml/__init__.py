@@ -83,7 +83,9 @@ def config_defaults(configurator, config_locations, files=['config.yml']):
             package = sys.modules[package_name]
             path = os.path.join(package_path(package), filename)
 
-        file_paths.extend([os.path.join(path, f) for f in files])
+        for config_path in [os.path.join(path, f) for f in files]:
+            if os.path.isfile(config_path):
+                file_paths.append(config_path)
 
     config = ConfigManager(files=file_paths)
 
