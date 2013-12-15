@@ -23,7 +23,7 @@ tzf.pyramid_yml README
 Documentation
 -------------
 
-Documentation can be found here: http://pythonhosted.org/tzf.pyramid_yml/
+Documentation can be found here: https://readthedocs.org/projects/tzfpyramid_yml/
 
 Testing
 -------
