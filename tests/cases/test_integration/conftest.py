@@ -13,7 +13,7 @@ from tests.utils import config_factory
 package_name, filename = resolve_asset_spec('tests:config')
 __import__(package_name)
 package = sys.modules[package_name]
-config_path = os.path.join(package_path(package), filename)
+full_path = os.path.join(package_path(package), filename)
 
 
 class App(object):
@@ -26,7 +26,7 @@ class App(object):
 
 
 @pytest.fixture(scope='function',
-                params=['tests:config', 'tests:config/config.yml', config_path])
+                params=['tests:config', 'tests:config/config.yml', full_path])
 def base_app(request):
     """Configure the Pyramid application."""
 
@@ -38,7 +38,7 @@ def base_app(request):
 
 
 @pytest.fixture(scope='function',
-                params=['tests:config', 'tests:config/config.yml', config_path])
+                params=['tests:config', 'tests:config/config.yml', full_path])
 def prod_app(request):
     """Configure the Pyramid application.
        This time we want it to production environment.

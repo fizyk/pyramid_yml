@@ -6,7 +6,6 @@
 # the MIT License (MIT): http://opensource.org/licenses/MIT
 
 import os
-import sys
 import logging
 
 from pyramid.asset import resolve_asset_spec

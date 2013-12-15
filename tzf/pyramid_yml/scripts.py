@@ -8,10 +8,8 @@
 import optparse
 import sys
 import textwrap
-import re
 
 from pyramid.paster import bootstrap
-from pymlconf import ConfigDict, ConfigManager, ConfigList
 
 _indent = '  '
 
