@@ -8,6 +8,8 @@ current
 - introduced License
 - allow to load configuration files from more than one folder
 - use only existing files to squash PymlConf warnings
+- ability to use full path to file in yml.location path
+- clearing some tests
 
 0.2.0
 -------
