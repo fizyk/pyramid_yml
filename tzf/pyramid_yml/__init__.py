@@ -34,9 +34,7 @@ def includeme(configurator, routing_package=None):
     configurator.add_directive('config_defaults',
                                config_defaults)
 
-    configurator.config_defaults(yml_locations, files=[
-                                 'config.yml',
-                                 'config.{env}.yml'.format(env=settings.get('env', 'dev'))])
+    configurator.config_defaults(yml_locations)
 
     # reading yml configuration
 
@@ -72,18 +70,17 @@ def config_defaults(configurator, config_locations, files=['config.yml']):
     if not isinstance(config_locations, (list, tuple)):
         config_locations = (config_locations,)
 
-    file_paths = []
-    for config_file in config_locations:
-        # getting spec path
-        package_name, filename = resolve_asset_spec(config_file)
-        if not package_name:
-            path = filename
-        else:
-            __import__(package_name)
-            package = sys.modules[package_name]
-            path = os.path.join(package_path(package), filename)
+    env = configurator.registry.settings.get('env', 'dev')
 
-        for config_path in [os.path.join(path, f) for f in files]:
+    file_paths = []
+    for location in config_locations:
+        path = _translate_config_path(location)
+        current_files = files
+        if os.path.isfile(path):
+            path, current_files = os.path.split(path)
+            current_files = [current_files]
+
+        for config_path in [os.path.join(path, f) for f in _env_filenames(current_files, env)]:
             if os.path.isfile(config_path):
                 file_paths.append(config_path)
 
@@ -95,6 +92,47 @@ def config_defaults(configurator, config_locations, files=['config.yml']):
     else:
         config.merge(configurator.registry['config'])
         configurator.registry['config'] = config
+
+
+def _translate_config_path(location):
+    '''
+    Translates location into fullpath according asset specification.
+    Might be package:path for package related paths, or simply path
+
+    :param str location: resource location
+    :returns: fullpath
+
+    :rtype: str
+    '''
+
+    # getting spec path
+    package_name, filename = resolve_asset_spec(location)
+    if not package_name:
+        path = filename
+    else:
+        package = __import__(package_name)
+        path = os.path.join(package_path(package), filename)
+
+    return path
+
+
+def _env_filenames(filenames, env):
+    '''
+    Extends filenames with ennv indication of environments
+
+    :param list filenames: list of strings indicating filenames
+    :param str env: environment indicator
+
+    :returns: list of filenames extended with environment version
+    :rtype: list
+    '''
+    env_filenames = []
+    for filename in filenames:
+        filename_parts = filename.split('.')
+        filename_parts.insert(1, env)
+        env_filenames.extend([filename, '.'.join(filename_parts)])
+
+    return env_filenames
 
 
 def _extend_settings(settings, configurator_config, prefix=None):
