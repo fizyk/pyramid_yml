@@ -7,6 +7,7 @@ current
 - rewrite all test to py.test
 - introduced License
 - allow to load configuration files from more than one folder
+- use only existing files to squash PymlConf warnings
 
 0.2.0
 -------
