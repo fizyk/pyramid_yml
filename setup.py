@@ -21,10 +21,9 @@ def read(fname):
     return content
 
 test_requires = [
-    'WebTest',
     'coverage',
-    'pytest',
-    'pytest-cov'
+    'pytest-cov',
+    'pytest_pyramid'
 ]
 
 extras_require = {
@@ -54,9 +53,10 @@ setup(
         'Natural Language :: English',
         'Operating System :: OS Independent',
         'Programming Language :: Python',
-        'Programming Language :: Python :: 2.6',
         'Programming Language :: Python :: 2.7',
         'Programming Language :: Python :: 3',
+        'Programming Language :: Python :: 3.2',
+        'Programming Language :: Python :: 3.3',
         'Framework :: Pyramid',
         'Topic :: Internet :: WWW/HTTP',
         'Topic :: Internet :: WWW/HTTP :: WSGI',
