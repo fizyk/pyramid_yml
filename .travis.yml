@@ -5,11 +5,11 @@ python:
     - "3.2"
     - "3.3"
 env:
-    - PYRAMID_VER="<1.5a" # test 1.4 series
-    - PYRAMID_VER=">1.5a" # test 1.5 series
+    - PYRAMID_VER="<=1.5a" # test 1.4 series
+    - PYRAMID_VER=">=1.5a" # test 1.5 series
 install:
     - "python setup.py install"
-    - "pip install tzf.pyramid_yml[tests] coveralls pyramid=$PYRAMID_VER --use-mirrors"
+    - "pip install tzf.pyramid_yml[tests] coveralls pyramid$PYRAMID_VER --use-mirrors"
 script:
     - py.test --cov-report term-missing --cov tzf.pyramid_yml tests/
 after_success:
