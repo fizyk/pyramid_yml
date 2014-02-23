@@ -21,10 +21,9 @@ def read(fname):
     return content
 
 test_requires = [
-    'WebTest',
     'coverage',
-    'pytest',
-    'pytest-cov'
+    'pytest-cov',
+    'pytest_pyramid'
 ]
 
 extras_require = {
