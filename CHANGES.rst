@@ -2,6 +2,11 @@
 CHANGES
 =======
 
+current
+-------
+- changed tests to depend on pytest_pyramid
+
+
 0.3.0
 -----
 - rewrite all test to py.test
@@ -21,7 +26,6 @@ CHANGES
 - python 3 compatibility
 - Include pyramid packages
 - filling in standard settings based on configurator: in yml configuration
-
 
 0.0.1
 -----
