@@ -30,8 +30,7 @@ def includeme(configurator, routing_package=None):
     # lets default it to running path
     yml_locations = settings.get('yml.location', os.getcwd())
 
-    configurator.add_directive('config_defaults',
-                               config_defaults)
+    configurator.add_directive('config_defaults', config_defaults)
 
     configurator.config_defaults(yml_locations)
 

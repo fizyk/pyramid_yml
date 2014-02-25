@@ -26,15 +26,18 @@ configurations for production environment separately.
 
 Path can point to directory or to exact file. In the latter case, pyramid_yml
 will try to inject env part into the filename, and trying to read from both
-main config, and env one, like. So effectively setting
-*my.package:config/application.yml* will result in
-*/path/to/my/package/config/config.yml* and */path/to/my/package/config/config.env.yml*
-from which pyramid_yml will try to read configuration.
+main config, and env one, alike. So effectively setting
+*my.package:config/application.yml* will result in pyramid_yml trying to read
+configuration from both */path/to/my/package/config/application.yaml* and
+*/path/to/my/package/config/application.env.yaml*.
+
+There's no rule here, on what extensions pyramid_yml will try to read,
+just that these files must contain yaml syntax.
 
 .. note::
     You do not have to define any of these options:
 
-    * **yml.location** defaults to the place you start your app from (usually, same place you keep your .ini files)
+    * **yml.location** defaults to the place you start your app from (usually, same place you keep your .ini files usually)
     * **env** defaults to dev
 
 Yaml configuration files
@@ -47,7 +50,7 @@ but all keys and values defined in first, and not in second, will stay the same:
 
 .. code-block:: yaml
 
-    # config.yml
+    # config.yaml
     key:
         subkey: value
         subkey2: value2
@@ -159,6 +162,6 @@ It's use is as simple as:
 .. code-block:: python
 
     config.config_defaults('package.module:folder/subfolder')
-    config.config_defaults('package.module:folder/subfolder', ['my_defaults.yml'])
+    config.config_defaults('package.module:folder/subfolder', ['my_defaults.yaml'])
 
 It's more detailed within api section. :meth:`tzf.pyramid_yml.config_defaults`
