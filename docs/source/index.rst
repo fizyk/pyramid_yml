@@ -14,28 +14,25 @@ Contents
    usage
    api
 
-Third party libraries
----------------------
-
-* `pymlconf <https://pypi.python.org/pypi/pymlconf>`_ > 0.2.10a
-
 
 Testing
-=======
+-------
 
-To run tests you'll need *webtest*, *nosetests* and *coverage* package
+To run tests you'll need py.test installed. To install all dependencues
+required for running tests, simply run `pip install tzf.pyramid_yml[tests]`.
+After that, simply run `py.test`
 
-- ``$ python setup.py test``
-- ``$ python setup.py nosetests``
+Code & Issues
+-------------
 
-Code
-====
-
-Code can be found on github: https://github.com/fizyk/pyramid_yml
+* Code: https://github.com/fizyk/pyramid_yml
+* Issues: https://github.com/fizyk/pyramid_yml/issues
 
 
-TODOs
-=====
+License
+-------
 
-For full list of todos, please visit github issues:
-https://github.com/fizyk/pyramid_yml/issues?state=open
+Copyright (c) 2014 by pytest_pyramid authors and contributors. See :ref:`authors`
+
+This module is part of pytest_pyramid and is released under
+the MIT License (MIT): http://opensource.org/licenses/MIT
