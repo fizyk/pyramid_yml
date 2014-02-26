@@ -7,13 +7,13 @@ To use **tzf.pyramid_yml** in your pyramid app, add config.include('') directive
 
     config.inlude('tzf.pyramid_yml')
 
-Now you need to add **yml.location** into you application's setting.ini file.
+Now you need to add **yaml.location** into you application's setting.ini file.
 
 .. code-block:: ini
 
     [app:main]
         # ....
-        yml.location = my.package:config
+        yaml.location = my.package:config
         env = dev # default value is dev
         # ....
 
@@ -27,7 +27,7 @@ configurations for production environment separately.
 Path can point to directory or to exact file. In the latter case, pyramid_yml
 will try to inject env part into the filename, and trying to read from both
 main config, and env one, alike. So effectively setting
-*my.package:config/application.yml* will result in pyramid_yml trying to read
+*my.package:config/application.yaml* will result in pyramid_yml trying to read
 configuration from both */path/to/my/package/config/application.yaml* and
 */path/to/my/package/config/application.env.yaml*.
 
@@ -37,14 +37,14 @@ just that these files must contain yaml syntax.
 .. note::
     You do not have to define any of these options:
 
-    * **yml.location** defaults to the place you start your app from (usually, same place you keep your .ini files usually)
+    * **yaml.location** defaults to the place you start your app from (usually, same place you keep your .ini files usually)
     * **env** defaults to dev
 
 Yaml configuration files
 ------------------------
 
 tzf.pyramid_yml will read two yaml configuration files:
-*config.yml* and *config.{env}.yml* (config.dev.yml in this case) from yml.location.
+*config.yaml* and *config.{env}.yaml* (config.dev.yaml in this case) from yaml.location.
 The second one will overwrite the values from the first file,
 but all keys and values defined in first, and not in second, will stay the same:
 
@@ -58,7 +58,7 @@ but all keys and values defined in first, and not in second, will stay the same:
 
 .. code-block:: yaml
 
-    #config.dev.yml
+    #config.dev.yaml
     key:
         subkey2: overwritten
         another:
@@ -153,7 +153,7 @@ Adding more defaults
 --------------------
 
 **tzf.pyramid_yml** allows to create more defaults, based on same location
-of yaml files, as defined in *yml.location*, allowing to use this method
+of yaml files, as defined in *yaml.location*, allowing to use this method
 by 3rd party pyramid plugins.
 
 To do this, config_defaults method has been added to Configurator object.

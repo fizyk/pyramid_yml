@@ -28,11 +28,12 @@ def includeme(configurator, routing_package=None):
     settings = configurator.registry.settings
 
     # lets default it to running path
-    yml_locations = settings.get('yml.location', os.getcwd())
+    yaml_locations = settings.get('yaml.location',
+                                  settings.get('yml.location', os.getcwd()))
 
     configurator.add_directive('config_defaults', config_defaults)
 
-    configurator.config_defaults(yml_locations)
+    configurator.config_defaults(yaml_locations)
 
     # reading yml configuration
 
@@ -49,16 +50,18 @@ def includeme(configurator, routing_package=None):
             _run_includemes(configurator, config.include)
 
     # let's calla a convenience request method
-    configurator.add_request_method(lambda request: request.registry['config'], name='config', property=True)
+    configurator.add_request_method(
+        lambda request: request.registry['config'], name='config', property=True)
 
 
-def config_defaults(configurator, config_locations, files=['config.yml']):
+def config_defaults(configurator, config_locations, files=['config.yaml', 'config.yml']):
     '''
         Reads and extends/creates configuration from yaml source.
 
         .. note::
-            If exists, this method extends config with defaults, so it will not override existing values,
-            merely add those, that were not defined already!
+            If exists, this method extends config with defaults,
+            so it will not override existing values, merely add those,
+            that were not defined already!
 
         :param pyramid.config.Configurator configurator: pyramid's app configurator
         :param list config_locations: list of yaml file locations

@@ -8,7 +8,7 @@ def test_extend_with_defaults(base_config):
     # defaults.yml is not yet included
     assert not ('subkey3' in base_config.registry['config'].key)
 
-    base_config.config_defaults('tests:config', files=['defaults.yml'])
+    base_config.config_defaults('tests:config', files=['defaults.yaml'])
     # defaults.yml sets to True, but it should be defined as False by config.yml
     assert not base_config.registry['config'].key.subkey
     # defaults.yml is included, key should exists

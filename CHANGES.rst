@@ -5,6 +5,7 @@ CHANGES
 current
 -------
 - changed tests to depend on pytest_pyramid
+- changed to support yaml extension by default, updated docs
 
 
 0.3.0

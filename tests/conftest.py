@@ -14,26 +14,26 @@ full_path = os.path.join(package_path(package), filename)
 
 
 @pytest.fixture(scope='function',
-                params=['tests:config', 'tests:config/config.yml', full_path])
+                params=['tests:config', 'tests:config/config.yaml', full_path])
 def base_config(request):
     return factories.pyramid_config({
-        'yml.location': request.param,
+        'yaml.location': request.param,
         'pyramid.includes': ['tzf.pyramid_yml']
     })(request)
 
 
 @pytest.fixture(scope='function',
-                params=['tests:config', 'tests:config/config.yml', full_path])
+                params=['tests:config', 'tests:config/config.yaml', full_path])
 def prod_config(request):
     return factories.pyramid_config({
         'env': 'prod',
-        'yml.location': request.param,
+        'yaml.location': request.param,
         'pyramid.includes': ['tzf.pyramid_yml']
     })(request)
 
 
 multifolder_config = factories.pyramid_config({
     'env': 'prod',
-    'yml.location': ['tests:config', 'tests:config2'],
+    'yaml.location': ['tests:config', 'tests:config2'],
     'pyramid.includes': ['tzf.pyramid_yml']
 })
