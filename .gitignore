@@ -3,6 +3,7 @@
 .coverage
 *.egg-info/
 dist/
+build/
 docs/build/
 *.info
 *.egg
