@@ -4,6 +4,7 @@ python:
     - "2.7"
     - "3.2"
     - "3.3"
+    - "3.4"
 env:
     - PYRAMID_VER="<=1.5a" # test 1.4 series
     - PYRAMID_VER=">=1.5a" # test 1.5 series
