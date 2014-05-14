@@ -1,10 +1,9 @@
-# -*- coding: utf-8 -*-
-
 # Copyright (c) 2013 by tzf.pyramid_yml authors and contributors
 # <see AUTHORS file>
 #
 # This module is part of tzf.pyramid_yml and is released under
 # the MIT License (MIT): http://opensource.org/licenses/MIT
+"""pyramid_yml main functionality."""
 
 import os
 import logging
@@ -19,13 +18,12 @@ __version__ = '1.0.0'
 logger = logging.getLogger(__name__)
 
 
-def includeme(configurator, routing_package=None):
+def includeme(configurator):
     """
-    Adds rotues defined in config into pyramid app
+    Add yaml configuration utilities.
 
     :param pyramid.config.Configurator configurator: pyramid's app configurator
     """
-
     settings = configurator.registry.settings
 
     # lets default it to running path
@@ -59,7 +57,7 @@ def includeme(configurator, routing_package=None):
 
 def config_defaults(
         configurator, config_locations, files=['config.yaml', 'config.yml']):
-    '''
+    """
     Read and extends/creates configuration from yaml source.
 
     .. note::
@@ -70,8 +68,7 @@ def config_defaults(
     :param pyramid.config.Configurator configurator: pyramid's app configurator
     :param list config_locations: list of yaml file locations
     :param list files: list of files to include from location
-    '''
-
+    """
     if not isinstance(config_locations, (list, tuple)):
         config_locations = (config_locations,)
 
@@ -103,16 +100,16 @@ def config_defaults(
 
 
 def _translate_config_path(location):
-    '''
-    Translates location into fullpath according asset specification.
+    """
+    Translate location into fullpath according asset specification.
+
     Might be package:path for package related paths, or simply path
 
     :param str location: resource location
     :returns: fullpath
 
     :rtype: str
-    '''
-
+    """
     # getting spec path
     package_name, filename = resolve_asset_spec(location)
     if not package_name:
@@ -125,15 +122,15 @@ def _translate_config_path(location):
 
 
 def _env_filenames(filenames, env):
-    '''
-    Extends filenames with ennv indication of environments
+    """
+    Extend filenames with ennv indication of environments.
 
     :param list filenames: list of strings indicating filenames
     :param str env: environment indicator
 
     :returns: list of filenames extended with environment version
     :rtype: list
-    '''
+    """
     env_filenames = []
     for filename in filenames:
         filename_parts = filename.split('.')
@@ -144,14 +141,27 @@ def _env_filenames(filenames, env):
 
 
 def _extend_settings(settings, configurator_config, prefix=None):
-    '''
-    Extends settings dictionary with yml'settings defined in configurator: key
+    """
+    Extend settings dictionary with content of yaml's  configurator key.
+
+    .. note::
+
+        This methods changes multilayered subkeys defined
+        within **configurator** into dotted keys in settings dictionary:
+
+        .. code-block:: yaml
+
+            configurator:
+                sqlalchemy:
+                    url: mysql://user:password@host/dbname
+
+        will result in **sqlalchemy.url**: mysql://user:password@host/dbname
+        key value in settings dictionary.
 
     :param dict settings: settings dictionary
     :param dict configurator_config: yml defined settings
     :param str prefix: prefix for settings dict key
-    '''
-
+    """
     for key in configurator_config:
         settings_key = '.'.join([prefix, key]) if prefix else key
 
@@ -165,14 +175,12 @@ def _extend_settings(settings, configurator_config, prefix=None):
 
 
 def _run_includemes(configurator, includemes):
-    '''
-    Runs configurator.include() for packages defined in include key
-    in yaml configuration
+    """
+    Automatically include packages defined in **include** configuration key.
 
     :param pyramid.config.Configurator configurator: pyramid's app configurator
     :param dict includemes: include, a list of includes or dictionary
-    '''
-
+    """
     for include in includemes:
         if includemes[include]:
             try:
