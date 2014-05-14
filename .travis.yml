@@ -10,7 +10,9 @@ env:
     - PYRAMID_VER=">=1.5a" # test 1.5 series
 install:
     - "python setup.py install"
-    - "pip install tzf.pyramid_yml[tests] coveralls pyramid$PYRAMID_VER --use-mirrors"
+    - "pip install tzf.pyramid_yml[tests] coveralls pyramid$PYRAMID_VER"
+    # manually install wheel for deployment
+    - "pip install wheel"
 script:
     - py.test --cov-report term-missing --cov tzf.pyramid_yml tests/
     - pylama
@@ -27,4 +29,4 @@ deploy:
     on:
         tags: true
         repo: fizyk/pyramid_yml
-    distributions: "sdist bdist bdist_wheel"
+    distributions: "sdist bdist_egg bdist_wheel"
