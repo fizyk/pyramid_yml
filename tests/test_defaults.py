@@ -1,10 +1,12 @@
-# -*- coding: utf-8 -*-
+"""Tests extending config with defaults."""
 
 
 def test_extend_with_defaults(base_config):
-    '''Test whether default from extending defaults
-       are not overriding previously created config'''
+    """
+    Test whether default from extending defaults.
 
+    are not overriding previously created config
+    """
     # defaults.yml is not yet included
     assert not ('subkey3' in base_config.registry['config'].key)
 
