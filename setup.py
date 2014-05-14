@@ -1,5 +1,4 @@
-# -*- coding: utf-8 -*-
-
+"""tzf.pyramid_yml installation file."""
 import os
 import re
 from setuptools import setup, find_packages
@@ -12,10 +11,8 @@ with open(os.path.join(here, 'tzf', 'pyramid_yml', '__init__.py')) as v_file:
 
 
 def read(fname):
-    '''Quick way to read a file content.
-       Using 'with' closes file descriptor properly.
-    '''
-    content = ''
+    """Quick way to read a file content."""
+    content = None
     with open(os.path.join(here, fname)) as f:
         content = f.read()
     return content
