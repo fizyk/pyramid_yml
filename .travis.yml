@@ -6,11 +6,11 @@ python:
     - "3.3"
     - "3.4"
 env:
-    - PYRAMID_VER="<=1.5a" # test 1.4 series
-    - PYRAMID_VER=">=1.5a" # test 1.5 series
+    - PYRAMID_VER="==1.4.5" # test 1.4 series
+    - PYRAMID_VER="==1.5" # test 1.5 series
 install:
     - "python setup.py install"
-    - "pip install tzf.pyramid_yml[tests] coveralls pyramid$PYRAMID_VER"
+    - "pip install tzf.pyramid_yml[tests] coveralls pylama pyramid$PYRAMID_VER"
     # manually install wheel for deployment
     - "pip install wheel"
 script:
