@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 
-# Copyright (c) 2013 by tzf.pyramid_yml authors and contributors <see AUTHORS file>
+# Copyright (c) 2013 by tzf.pyramid_yml authors and contributors
+# <see AUTHORS file>
 #
 # This module is part of tzf.pyramid_yml and is released under
 # the MIT License (MIT): http://opensource.org/licenses/MIT
@@ -19,11 +20,11 @@ logger = logging.getLogger(__name__)
 
 
 def includeme(configurator, routing_package=None):
-    '''
-        Adds rotues defined in config into pyramid app
+    """
+    Adds rotues defined in config into pyramid app
 
-        :param pyramid.config.Configurator configurator: pyramid's app configurator
-    '''
+    :param pyramid.config.Configurator configurator: pyramid's app configurator
+    """
 
     settings = configurator.registry.settings
 
@@ -51,21 +52,24 @@ def includeme(configurator, routing_package=None):
 
     # let's calla a convenience request method
     configurator.add_request_method(
-        lambda request: request.registry['config'], name='config', property=True)
+        lambda request: request.registry['config'],
+        name='config', property=True
+    )
 
 
-def config_defaults(configurator, config_locations, files=['config.yaml', 'config.yml']):
+def config_defaults(
+        configurator, config_locations, files=['config.yaml', 'config.yml']):
     '''
-        Reads and extends/creates configuration from yaml source.
+    Read and extends/creates configuration from yaml source.
 
-        .. note::
-            If exists, this method extends config with defaults,
-            so it will not override existing values, merely add those,
-            that were not defined already!
+    .. note::
+        If exists, this method extends config with defaults,
+        so it will not override existing values, merely add those,
+        that were not defined already!
 
-        :param pyramid.config.Configurator configurator: pyramid's app configurator
-        :param list config_locations: list of yaml file locations
-        :param list files: list of files to include from location
+    :param pyramid.config.Configurator configurator: pyramid's app configurator
+    :param list config_locations: list of yaml file locations
+    :param list files: list of files to include from location
     '''
 
     if not isinstance(config_locations, (list, tuple)):
@@ -81,14 +85,17 @@ def config_defaults(configurator, config_locations, files=['config.yaml', 'confi
             path, current_files = os.path.split(path)
             current_files = [current_files]
 
-        for config_path in [os.path.join(path, f) for f in _env_filenames(current_files, env)]:
+        for config_path in [
+            os.path.join(path, f) for f in _env_filenames(current_files, env)
+        ]:
             if os.path.isfile(config_path):
                 file_paths.append(config_path)
 
     config = ConfigManager(files=file_paths)
 
-    # we could use this method both for creating and extending. Hence the checks to not override
-    if not 'config' in configurator.registry:
+    # we could use this method both for creating and extending.
+    # Hence the checks to not override
+    if 'config' not in configurator.registry:
         configurator.registry['config'] = config
     else:
         config.merge(configurator.registry['config'])
@@ -138,28 +145,32 @@ def _env_filenames(filenames, env):
 
 def _extend_settings(settings, configurator_config, prefix=None):
     '''
-        Extends settings dictionary with yml'settings defined in configurator: key
+    Extends settings dictionary with yml'settings defined in configurator: key
 
-        :param dict settings: settings dictionary
-        :param dict configurator_config: yml defined settings
-        :param str prefix: prefix for settings dict key
+    :param dict settings: settings dictionary
+    :param dict configurator_config: yml defined settings
+    :param str prefix: prefix for settings dict key
     '''
 
     for key in configurator_config:
         settings_key = '.'.join([prefix, key]) if prefix else key
 
-        if hasattr(configurator_config[key], 'keys') and hasattr(configurator_config[key], '__getitem__'):
-            _extend_settings(settings, configurator_config[key], prefix=settings_key)
+        if hasattr(configurator_config[key], 'keys') and\
+                hasattr(configurator_config[key], '__getitem__'):
+            _extend_settings(
+                settings, configurator_config[key], prefix=settings_key
+            )
         else:
             settings[settings_key] = configurator_config[key]
 
 
 def _run_includemes(configurator, includemes):
     '''
-        Runs configurator.include() for packages defined in include key in yaml configuration
+    Runs configurator.include() for packages defined in include key
+    in yaml configuration
 
-        :param pyramid.config.Configurator configurator: pyramid's app configurator
-        :param dict includemes: include, a list of includes or dictionary
+    :param pyramid.config.Configurator configurator: pyramid's app configurator
+    :param dict includemes: include, a list of includes or dictionary
     '''
 
     for include in includemes:

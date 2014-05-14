@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 
-# Copyright (c) 2013 by tzf.pyramid_yml authors and contributors <see AUTHORS file>
+# Copyright (c) 2013 by tzf.pyramid_yml authors and contributors
+# <see AUTHORS file>
 #
 # This module is part of tzf.pyramid_yml and is released under
 # the MIT License (MIT): http://opensource.org/licenses/MIT
@@ -31,7 +32,8 @@ def print_config():  # pragma: no cover
         metavar='PREFIX',
         type='string',
         action='store',
-        help=("Tells script to print only specified config tree provided by dotted name")
+        help=("Tells script to print only specified"
+              " config tree provided by dotted name")
     )
 
     options, args = parser.parse_args(sys.argv[1:])
@@ -46,7 +48,10 @@ def print_config():  # pragma: no cover
     try:
         print(printer(_slice_config(config, options.key)))
     except KeyError:
-        print('Sorry, but the key path {0}, does not exists in Your config!'.format(options.key))
+        print(
+            'Sorry, but the key path {0}, does not exists in Your config!'
+            .format(options.key)
+        )
     finally:
         closer()
 
@@ -77,7 +82,9 @@ def printer(data, depth=0):
         for el in data:
             config_string += '{0} - {1}\n'.format(ident, el)
     else:
-        config_string = '{0}{1} ({2})'.format(ident, data, data.__class__.__name__)
+        config_string = '{0}{1} ({2})'.format(
+            ident, data, data.__class__.__name__
+        )
 
     return config_string.rstrip('\n')
 
