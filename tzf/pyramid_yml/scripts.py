@@ -1,4 +1,4 @@
-# Copyright (c) 2013 by tzf.pyramid_yml authors and contributors
+# Copyright (c) 2013 - 2014 by tzf.pyramid_yml authors and contributors
 # <see AUTHORS file>
 #
 # This module is part of tzf.pyramid_yml and is released under
