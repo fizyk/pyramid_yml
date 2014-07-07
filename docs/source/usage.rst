@@ -40,6 +40,20 @@ just that these files must contain yaml syntax.
     * **yaml.location** defaults to the place you start your app from (usually, same place you keep your .ini files usually)
     * **env** defaults to dev
 
+Multifile configuration support
+-------------------------------
+
+There exists multifile configuration support. Meaning, that configuration can be
+stored in several files at once and all of them will be joined.
+
+To do that, you need to either load defaults with list of config locations,
+or add other locations separated by comma in your ini file:
+
+    [app:main]
+        # ....
+        yaml.location = my.package:config, my.package:config3
+        # ....
+
 Yaml configuration files
 ------------------------
 

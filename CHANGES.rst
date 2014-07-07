@@ -2,6 +2,12 @@
 CHANGES
 =======
 
+unreleased
+-------
+
+- improved support for defining more than one configuration locations in ini file
+
+
 1.0.0
 -----
 - changed tests to depend on pytest_pyramid

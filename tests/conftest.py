@@ -35,8 +35,13 @@ def prod_config(request):
     })(request)
 
 
-multifolder_config = factories.pyramid_config({
-    'env': 'prod',
-    'yaml.location': ['tests:config', 'tests:config2'],
-    'pyramid.includes': ['tzf.pyramid_yml']
-})
+@pytest.fixture(
+    scope='function',
+    params=[['tests:config', 'tests:config2'], 'tests:config, tests:config2'])
+def multifolder_config(request):
+    """Test with two ways of setting many locations for config."""
+    return factories.pyramid_config({
+        'env': 'prod',
+        'yaml.location': request.param,
+        'pyramid.includes': ['tzf.pyramid_yml']
+    })(request)

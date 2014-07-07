@@ -70,7 +70,7 @@ def config_defaults(
     :param list files: list of files to include from location
     """
     if not isinstance(config_locations, (list, tuple)):
-        config_locations = (config_locations,)
+        config_locations = config_locations.split(',')
 
     env = configurator.registry.settings.get('env', 'dev')
 
@@ -111,7 +111,7 @@ def _translate_config_path(location):
     :rtype: str
     """
     # getting spec path
-    package_name, filename = resolve_asset_spec(location)
+    package_name, filename = resolve_asset_spec(location.strip())
     if not package_name:
         path = filename
     else:
