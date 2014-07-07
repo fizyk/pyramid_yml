@@ -39,6 +39,7 @@ def prod_config(request):
     scope='function',
     params=[['tests:config', 'tests:config2'], 'tests:config, tests:config2'])
 def multifolder_config(request):
+    """Test with two ways of setting many locations for config."""
     return factories.pyramid_config({
         'env': 'prod',
         'yaml.location': request.param,
