@@ -2,7 +2,7 @@
 CHANGES
 =======
 
-unreleased
+1.0.1
 -------
 
 - improved support for defining more than one configuration locations in ini file
