@@ -10,3 +10,4 @@ Contributors
 ------------
 
 * Łukasz Zusel
+* Marc Abramovitz
