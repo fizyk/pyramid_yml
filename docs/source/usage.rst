@@ -49,10 +49,12 @@ stored in several files at once and all of them will be joined.
 To do that, you need to either load defaults with a list of config locations,
 or add other locations separated by comma in your ini file:
 
+.. code-block:: ini
+
     [app:main]
-        # ....
-        yaml.location = my.package:config, my.package:config3
-        # ....
+    # ....
+    yaml.location = my.package:config, my.package:config3
+    # ....
 
 Yaml configuration files
 ------------------------
