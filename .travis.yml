@@ -1,10 +1,10 @@
 language: python
+sudo: false
 python:
-    - "2.6"
     - "2.7"
-    - "3.2"
     - "3.3"
     - "3.4"
+    - "3.5"
 env:
     - PYRAMID_VER="==1.5" # test 1.5 series
 install:
