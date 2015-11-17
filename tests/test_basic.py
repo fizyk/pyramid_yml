@@ -21,19 +21,17 @@ def test_reading_dev(base_config):
 def test_setting_overwriting(base_config):
     """Test whether 'configurator' key moves to settings."""
     assert 'pyramid.reload_templates' in base_config.registry.settings
-    assert (base_config.registry.settings['pyramid.reload_templates']
-            ==
-            base_config
-            .registry['config'].configurator['pyramid.reload_templates'])
+    assert base_config.registry.settings['pyramid.reload_templates'] ==\
+        base_config.registry['config'].\
+        configurator['pyramid.reload_templates']
 
 
 def test_settings_overwrite_complex(base_config):
     """Test whether 'configurator' complex keys gets moved into settings."""
     assert ('sqlalchemy.url' in base_config.registry.settings)
-    assert (base_config.registry.settings['sqlalchemy.url']
-            ==
-            base_config
-            .registry['config'].configurator['sqlalchemy']['url'])
+    assert base_config.registry.settings['sqlalchemy.url'] ==\
+        base_config.\
+        registry['config'].configurator['sqlalchemy']['url']
 
 
 def test_includeme(base_config):
