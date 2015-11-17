@@ -12,6 +12,7 @@ Contents
 
    install
    usage
+   contributing
    api
 
 
