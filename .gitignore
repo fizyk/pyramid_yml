@@ -8,3 +8,4 @@ docs/build/
 *.info
 *.egg
 *.swp
+.idea
