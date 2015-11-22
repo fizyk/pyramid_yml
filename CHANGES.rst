@@ -2,6 +2,11 @@
 CHANGES
 =======
 
+unreleased
+-------
+
+- changed config_defaults to not have default mutable argument. It's None instead - which gets replaced by default config.yaml and config.yml.
+
 1.0.1
 -------
 
