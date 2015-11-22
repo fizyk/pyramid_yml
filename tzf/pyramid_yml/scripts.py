@@ -45,7 +45,7 @@ def print_config():  # pragma: no cover
     config, closer = env['registry']['config'], env['closer']
 
     try:
-        print(printer(_slice_config(config, options.key)))
+        print(printer(slice_config(config, options.key)))
     except KeyError:
         print(
             'Sorry, but the key path {0}, does not exists in Your config!'
@@ -88,7 +88,7 @@ def printer(data, depth=0):
     return config_string.rstrip('\n')
 
 
-def _slice_config(config, key):
+def slice_config(config, key):
     """
     slice config for printing as defined in key.
 
