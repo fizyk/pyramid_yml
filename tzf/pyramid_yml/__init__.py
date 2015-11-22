@@ -56,7 +56,7 @@ def includeme(configurator):
 
 
 def config_defaults(
-        configurator, config_locations, files=['config.yaml', 'config.yml']):
+        configurator, config_locations, files=None):
     """
     Read and extends/creates configuration from yaml source.
 
@@ -69,6 +69,8 @@ def config_defaults(
     :param list config_locations: list of yaml file locations
     :param list files: list of files to include from location
     """
+    if files is None:
+        files = ['config.yaml', 'config.yml']
     if not isinstance(config_locations, (list, tuple)):
         config_locations = config_locations.split(',')
 
