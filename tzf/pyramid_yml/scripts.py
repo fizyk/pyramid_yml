@@ -36,7 +36,7 @@ def print_config():  # pragma: no cover
     )
 
     options, args = parser.parse_args(sys.argv[1:])
-    if not len(args) >= 1:
+    if not args:
         print('You must provide at least one argument')
         return 2
 
