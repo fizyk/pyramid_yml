@@ -36,4 +36,4 @@ conf_slicing = {'key': 'value', 'key2': {'key3': 'value'}}
 def test_slice(config, slice_key, sliced):
     """Test no slice pass for config."""
     # configuration should be the same
-    assert sliced == scripts._slice_config(config, slice_key)
+    assert sliced == scripts.slice_config(config, slice_key)
