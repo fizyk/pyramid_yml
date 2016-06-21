@@ -1,1 +1,0 @@
-tzf.pyramid_yml[docs]

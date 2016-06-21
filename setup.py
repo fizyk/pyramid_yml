@@ -18,9 +18,8 @@ def read(fname):
     return content
 
 test_requires = [
-    'coverage',
-    'pytest-cov',
-    'pytest_pyramid'
+    'pytest-cov==2.2.1',
+    'pytest_pyramid==0.2.0'
 ]
 
 extras_require = {
