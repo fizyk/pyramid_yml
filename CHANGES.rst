@@ -2,7 +2,7 @@
 CHANGES
 =======
 
-unreleased
+1.1.0
 -------
 
 - all scripts functions are public
