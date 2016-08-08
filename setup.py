@@ -18,7 +18,7 @@ def read(fname):
     return content
 
 test_requires = [
-    'pytest-cov==2.3.0',
+    'pytest-cov==2.3.1',
     'pytest_pyramid==0.2.0'
 ]
 
