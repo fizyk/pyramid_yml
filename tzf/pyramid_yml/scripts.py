@@ -90,7 +90,7 @@ def printer(data, depth=0):
 
 def slice_config(config, key):
     """
-    slice config for printing as defined in key.
+    Slice config for printing as defined in key.
 
     :param ConfigManager config: configuration dictionary
     :param str key: dotted key, by which config should be sliced for printing
