@@ -1,13 +1,8 @@
 """tzf.pyramid_yml installation file."""
 import os
-import re
 from setuptools import setup, find_packages
 
 here = os.path.dirname(__file__)
-with open(os.path.join(here, 'tzf', 'pyramid_yml', '__init__.py')) as v_file:
-    package_version = re.compile(r".*__version__ = '(.*?)'", re.S)\
-                        .match(v_file.read())\
-                        .group(1)
 
 
 def read(fname):
@@ -16,6 +11,7 @@ def read(fname):
     with open(os.path.join(here, fname)) as f:
         content = f.read()
     return content
+
 
 test_requires = [
     'pytest-cov==2.4.0',
@@ -29,7 +25,7 @@ extras_require = {
 
 setup(
     name='tzf.pyramid_yml',
-    version=package_version,
+    version='1.1.0',
     description='Loads a yml defined configuration',
     long_description=(
         read('README.rst') + '\n\n' + read('CHANGES.rst')
