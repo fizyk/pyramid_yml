@@ -6,4 +6,4 @@ pyflakes==1.6.0
 pydocstyle==2.1.1
 mccabe==0.6.1
 pyramid==1.9.1
-pymlconf==0.7.3 #  rq.filter: !=0.5.0
+pymlconf==0.8.6 #  rq.filter: !=0.5.0
