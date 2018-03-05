@@ -2,15 +2,15 @@
 tzf.pyramid_yml README
 ==========================
 
-.. image:: https://pypip.in/v/tzf.pyramid_yml/badge.png
+.. image:: https://img.shields.io/pypi/v/tzf.pyramid_yml.svg
     :target: https://pypi.python.org/pypi/tzf.pyramid_yml/
     :alt: Latest PyPI version
 
-.. image:: https://pypip.in/d/tzf.pyramid_yml/badge.png
+.. image:: https://img.shields.io/pypi/dm/tzf.pyramid_yml.svg
     :target: https://pypi.python.org/pypi/tzf.pyramid_yml/
     :alt: Number of PyPI downloads
 
-.. image:: https://pypip.in/wheel/tzf.pyramid_yml/badge.png
+.. image:: https://img.shields.io/pypi/wheel/tzf.pyramid_yml.svg
     :target: https://pypi.python.org/pypi/tzf.pyramid_yml/
     :alt: Wheel Status
 
@@ -18,7 +18,7 @@ tzf.pyramid_yml README
     :target: https://pypi.python.org/pypi/tzf.pyramid_yml/
     :alt: Egg Status
 
-.. image:: https://pypip.in/license/tzf.pyramid_yml/badge.png
+.. image:: https://img.shields.io/pypi/l/tzf.pyramid_yml.svg
     :target: https://pypi.python.org/pypi/tzf.pyramid_yml/
     :alt: License
 
