@@ -2,6 +2,11 @@
 CHANGES
 =======
 
+unrleased
+-------
+
+- [fix] freeze pymlconf version at less than 1.0.0 which became incompatible with python 2.7 and is marked as python 3.6 only.
+
 1.1.0
 -------
 

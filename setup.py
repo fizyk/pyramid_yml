@@ -61,7 +61,7 @@ setup(
     zip_safe=False,
     install_requires=[
         'pyramid',
-        'pymlconf >= 0.3.7, !=0.5.0'
+        'pymlconf >= 0.3.7, !=0.5.0, <1.0.0'  # rq.filter <1.0.0
     ],
     tests_require=test_requires,
     extras_require=extras_require,
