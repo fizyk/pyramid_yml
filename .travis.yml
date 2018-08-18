@@ -1,36 +1,39 @@
 language: python
 sudo: false
 python:
-    - "2.7"
-    - "3.3"
-    - "3.4"
-    - "3.5"
-    - "3.6"
+  - "2.7"
+  - "3.3"
+  - "3.4"
+  - "3.5"
+  - "3.6"
 # blocklist branches
 branches:
   except:
   - requires-io-master
 install:
-    - "pip install -r requirements-test.txt"
-    - "python setup.py install"
-    - "pip install tzf.pyramid_yml[tests] coveralls"
-    # manually install wheel for deployment
-    - "pip install wheel"
+  - "pip install -r requirements-test.txt"
+  - "python setup.py install"
+  - "pip install tzf.pyramid_yml[tests] coveralls"
+  # manually install wheel for deployment
+  - "pip install wheel"
 script:
-    - py.test --cov-report term-missing --cov tzf.pyramid_yml tests/
-    - pylama
+  - py.test --cov-report term-missing --cov tzf.pyramid_yml tests/
+  - pylama
 after_success:
-    - coveralls
-
-# deploy
-
-deploy:
-    provider: pypi
-    user: fizyk
-    password:
+  - coveralls
+jobs:
+  include:
+  - stage: deploy
+    python: 3.6
+    if: tag IS present
+    script: skip
+    deploy:
+      provider: pypi
+      user: fizyk
+      password:
         secure: GMEtklbgirofHMeCDIZK+2B0h5/Y2nsLrgINPVnWyr7Vtt6vGuFSmT95nMJaFG7+H0y+K9AcHmME8g4bRL8Y7SKn06i5hfF32qAaSgqlwYyk41FPt6rIYh4wKwaVU499EdL3CrAUJpO4pPeKG3dZxcinNMIfuKIdVRxe7cBvBQg=
-    on:
+      on:
         tags: true
         all_branches: true
         repo: fizyk/pyramid_yml
-    distributions: "sdist bdist_egg bdist_wheel"
+      distributions: "bdist_wheel"
