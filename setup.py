@@ -25,14 +25,14 @@ extras_require = {
 
 setup(
     name='tzf.pyramid_yml',
-    version='1.1.0',
+    version='1.1.1',
     description='Loads a yml defined configuration',
     long_description=(
         read('README.rst') + '\n\n' + read('CHANGES.rst')
     ),
     keywords='pyramid yml configuration',
     author='Grzegorz Sliwinski',
-    author_email='username: fizyk, domain: fizyk.net.pl',
+    author_email='fizyk@fizyk.net.pl',
     url='https://github.com/fizyk/pyramid_yml',
     license="MIT License",
     classifiers=[
