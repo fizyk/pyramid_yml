@@ -5,13 +5,13 @@
 # the MIT License (MIT): http://opensource.org/licenses/MIT
 """Module behind pconfig commandline entrypoint."""
 
-import optparse
+import argparse
 import sys
 import textwrap
 
 from pyramid.paster import bootstrap
 
-_indent = '  '
+_INDENT = '  '
 
 
 def print_config():  # pragma: no cover
@@ -20,36 +20,35 @@ def print_config():  # pragma: no cover
         Print the deployment settings for a Pyramid application.  Example:
         'psettings deployment.ini'
     """
-    usage = "usage: %prog config_uri"
-    parser = optparse.OptionParser(
-        usage=usage,
+    parser = argparse.ArgumentParser(
         description=textwrap.dedent(description)
     )
-    parser.add_option(
+    parser.add_argument(
+        'config_uri', type=str, help='an integer for the accumulator'
+    )
+    parser.add_argument(
         '-k', '--key',
         dest='key',
         metavar='PREFIX',
-        type='string',
+        type=str,
         action='store',
-        help=("Tells script to print only specified"
-              " config tree provided by dotted name")
+        help=(
+            "Tells script to print only specified"
+            " config tree provided by dotted name"
+        )
     )
+    args = parser.parse_args(sys.argv[1:])
 
-    options, args = parser.parse_args(sys.argv[1:])
-    if not args:
-        print('You must provide at least one argument')
-        return 2
-
-    config_uri = args[0]
+    config_uri = args.config_uri
     env = bootstrap(config_uri)
     config, closer = env['registry']['config'], env['closer']
 
     try:
-        print(printer(slice_config(config, options.key)))
+        print(printer(slice_config(config, args.key)))
     except KeyError:
         print(
             'Sorry, but the key path {0}, does not exists in Your config!'
-            .format(options.key)
+            .format(args.key)
         )
     finally:
         closer()
@@ -65,12 +64,12 @@ def printer(data, depth=0):
     :returns: string with formatted config
     :rtype: str
     """
-    ident = _indent * depth
+    indent = _INDENT * depth
     config_string = '' if not depth else ':\n'
     if isinstance(data, dict):
-        for k, v in data.items():
-            line = '{0}{1}'.format(ident, k)
-            values = printer(v, depth + 1)
+        for key, val in data.items():
+            line = '{0}{1}'.format(indent, key)
+            values = printer(val, depth + 1)
             if not values.count('\n'):
                 values = ': {0}'.format(values.lstrip())
 
@@ -78,11 +77,11 @@ def printer(data, depth=0):
             config_string += '{0}\n'.format(line)
 
     elif isinstance(data, list):
-        for el in data:
-            config_string += '{0} - {1}\n'.format(ident, el)
+        for elem in data:
+            config_string += '{0} - {1}\n'.format(indent, elem)
     else:
         config_string = '{0}{1} ({2})'.format(
-            ident, data, data.__class__.__name__
+            indent, data, data.__class__.__name__
         )
 
     return config_string.rstrip('\n')

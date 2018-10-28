@@ -2,7 +2,6 @@ language: python
 sudo: false
 python:
   - "2.7"
-  - "3.3"
   - "3.4"
   - "3.5"
   - "3.6"
@@ -12,17 +11,25 @@ branches:
   - requires-io-master
 install:
   - "pip install -r requirements-test.txt"
-  - "python setup.py install"
-  - "pip install tzf.pyramid_yml[tests] coveralls"
+  - "pip install .[tests] coveralls"
   # manually install wheel for deployment
   - "pip install wheel"
 script:
   - py.test --cov-report term-missing --cov tzf.pyramid_yml tests/
-  - pylama
 after_success:
   - coveralls
 jobs:
   include:
+  - stage: linters
+    python: 3.6
+    install:
+    - pip install -r requirements-lint.txt
+    - pip install .[tests]
+    script:
+    - pycodestyle
+    - pydocstyle
+    - pylint tzf.pyramid_yml tests
+    after_success: skip
   - stage: deploy
     python: 3.6
     if: tag IS present
