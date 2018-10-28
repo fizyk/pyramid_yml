@@ -25,13 +25,13 @@ def test_printer_list(configvalue, countlines):
     assert len(lines) == countlines
 
 
-conf_slicing = {'key': 'value', 'key2': {'key3': 'value'}}
+CONF_SLICING = {'key': 'value', 'key2': {'key3': 'value'}}
 
 
 @pytest.mark.parametrize('config, slice_key, sliced', (
-    (conf_slicing, None, conf_slicing),
-    (conf_slicing, 'key2', conf_slicing['key2']),
-    (conf_slicing, 'key2.key3', conf_slicing['key2']['key3']),
+    (CONF_SLICING, None, CONF_SLICING),
+    (CONF_SLICING, 'key2', CONF_SLICING['key2']),
+    (CONF_SLICING, 'key2.key3', CONF_SLICING['key2']['key3']),
 ))
 def test_slice(config, slice_key, sliced):
     """Test no slice pass for config."""

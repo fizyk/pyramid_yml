@@ -15,7 +15,7 @@ from pymlconf import ConfigManager
 __version__ = '1.1.1'
 
 
-logger = logging.getLogger(__name__)
+log = logging.getLogger(__name__)
 
 
 def includeme(configurator):
@@ -38,7 +38,7 @@ def includeme(configurator):
 
     if configurator.registry['config']:
         config = configurator.registry['config']
-        logger.debug('Yaml config created')
+        log.debug('Yaml config created')
 
         # extend settings object
         if 'configurator' in config and config.configurator:
@@ -85,7 +85,8 @@ def config_defaults(
             current_files = [current_files]
 
         for config_path in [
-            os.path.join(path, f) for f in _env_filenames(current_files, env)
+                os.path.join(path, f)
+                for f in _env_filenames(current_files, env)
         ]:
             if os.path.isfile(config_path):
                 file_paths.append(config_path)
