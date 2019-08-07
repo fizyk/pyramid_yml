@@ -186,7 +186,7 @@ def _run_includemes(configurator, includemes):
     """
     for include in includemes:
         if includemes[include]:
-            try:
+            if isinstance(includemes[include], str):
                 configurator.include(include, includemes[include])
-            except AttributeError:
+            else:
                 configurator.include(include)
