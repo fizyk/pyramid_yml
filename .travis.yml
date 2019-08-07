@@ -10,11 +10,11 @@ python:
 branches:
   except:
   - requires-io-master
+  - /^dependabot.*$/
 install:
   - "pip install -r requirements-test.txt"
-  - "pip install .[tests] coveralls"
   # manually install wheel for deployment
-  - "pip install wheel"
+  - "pip install coveralls wheel"
 script:
   - py.test --cov-report term-missing --cov tzf.pyramid_yml tests/
 after_success:
@@ -25,7 +25,6 @@ jobs:
     python: 3.7
     install:
     - pip install -r requirements-lint.txt
-    - pip install .[tests]
     script:
     - pycodestyle
     - pydocstyle
