@@ -13,7 +13,7 @@ branches:
 install:
   - "pip install -r requirements-test.txt"
   # manually install wheel for deployment
-  - "pip install wheel"
+  - "pip install coveralls wheel"
 script:
   - py.test --cov-report term-missing --cov tzf.pyramid_yml tests/
 after_success:
