@@ -5,6 +5,7 @@ CHANGES
 unreleased
 -------
 
+- [enhancement] Drop support for python 2
 - [fix] Adjusted includemes for pyramid 1.10, which now marks includeme as processed even if it errored. Less ducktyping as well.
 
 
