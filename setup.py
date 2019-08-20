@@ -26,7 +26,7 @@ extras_require = {
 
 setup(
     name='tzf.pyramid_yml',
-    version='1.1.1',
+    version='2.0.0',
     description='Loads a yml defined configuration',
     long_description=(
         read('README.rst') + '\n\n' + read('CHANGES.rst')

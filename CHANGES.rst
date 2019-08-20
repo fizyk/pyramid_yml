@@ -2,7 +2,7 @@
 CHANGES
 =======
 
-unreleased
+2.0.0
 -------
 
 - [enhancement] Drop support for python 2
