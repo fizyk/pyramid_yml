@@ -1,5 +1,5 @@
 # test runs requirements (versions we'll be testing against) - automatically updated by requires.io
-pytest==5.4.3
+pytest==6.0.1
 pytest-cov==2.10.0
 pytest-pyramid==0.3.3
 coverage==5.2.1 # pytest-cov
