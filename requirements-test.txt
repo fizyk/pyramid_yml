@@ -3,5 +3,5 @@ pytest==6.1.2
 pytest-cov==2.10.1
 pytest-pyramid==0.3.3
 coverage==5.3 # pytest-cov
-pyramid==1.10.4
+pyramid==1.10.5
 .[tests]
